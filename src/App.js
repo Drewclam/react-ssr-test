@@ -1,22 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { Suspense, lazy, useState } from 'react';
+
+const ComponentToLoad = lazy(() => import('./ComponentToLoad'));
 
 function App() {
+  const [count, setCount] = useState(0);
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        Count:{count}
+        <button onClick={() => {
+          console.log('clikc')
+          setCount(count + 1)
+          }}>Increment</button>
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <ComponentToLoad />
+        </Suspense>
       </header>
     </div>
   );
